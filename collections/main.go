@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+	"strconv"
+)
 
 func main() {
 	var names [3]string
@@ -234,6 +238,130 @@ func main() {
 		fmt.Println("do not born")
 	}
 
+	fmt.Println("------------")
+
+	fmt.Println(m1)
+	delete(m1, "boy")
+	fmt.Println(m1)
+
+	if value, ok := m1["boy"]; ok {
+		fmt.Printf("the value %v exists", value)
+	} else {
+		fmt.Printf("the value do not exists\n")
+	}
+
+	fmt.Println("------enumerating maps-------")
+
+	for key, value := range m1 {
+		fmt.Printf("key --> %s, value --> %s\n", key, value)
+	}
+
+	fmt.Println("-------------")
+
+	var keys []string
+
+	for key, _ := range m1 {
+		keys = append(keys, key)
+	}
+
+	sort.Strings(keys)
+
+	for _, value := range keys {
+		fmt.Printf("key --> %s, value --> %s\n", value, m1[value])
+	}
+
+	fmt.Println("--------------")
+
+	// strings are array of bytes --> so be careful when slicing them.
+	var price string = "€48.95"
+
+	// var currency byte = price[0]
+
+	// amount, parseErr := strconv.ParseFloat(price[1:], 64)
+
+	// fmt.Println("currency: ", string(currency))
+	// if parseErr == nil {
+	// 	fmt.Println("amount: ", amount)
+	// } else {
+	// 	fmt.Printf("not parsable, %v", parseErr)
+	// }
+	fmt.Println(len(price))
+
+	fmt.Println("-----solution to parsing------")
+
+	var rune_price []rune = []rune(price)
+
+	var currency = rune_price[0]
+	fmt.Printf("the type is %T and the value is %v\n", currency, currency)
+
+	amount, parseErr := strconv.ParseFloat(string(rune_price[1:]), 64)
+
+	if parseErr == nil {
+		fmt.Printf("amount: %v\n", amount)
+	} else {
+		fmt.Printf("not parsable: %v\n", parseErr)
+	}
+
+	p := "$49.02"
+
+	var curr byte = p[0] // byte is uint8
+	fmt.Printf("the type is %T and value is %v\n", curr, string(curr))
+
+	if amount, parseErr := strconv.ParseFloat(p[1:], 64); parseErr == nil {
+		fmt.Printf("amount: %v\n", amount)
+	} else {
+		fmt.Println("not parsable. ", parseErr)
+	}
+
+	fmt.Println("----------------------")
+	var r_s []rune = []rune("mahkam")
+	fmt.Println(r_s)
+
+	fmt.Println("========================================")
+
+	str := "amir"
+	fmt.Printf("type --> %T, value --> %v\n", []byte(str), []byte(str))
+	fmt.Printf("type --> %T, value --> %v\n", []rune(str), []rune(str))
+	var first_one []byte = []byte(str)
+	var second_two []rune = []rune(str)
+
+	fmt.Println(len(first_one))
+	fmt.Println(len(second_two))
+
+	fmt.Println("--------bytes and runes------------")
+
+	s := "amir€ alaeifarwith euro by a ‹se›uhﬁ‡‹°"
+	var b []byte = []byte(s)
+	fmt.Printf("actual --> %v, string --> %s\n", b, string(b))
+
+	var r []rune = []rune(s)
+
+	var s_r []rune = []rune(s)
+	fmt.Println(string(s_r[4]))
+	var euro_r []rune = []rune(string(s_r[4]))
+	fmt.Println(string(euro_r))
+	fmt.Printf("actual --> %v, string --> %s\n", r, string(r))
+
+	fmt.Println("------mocking--------")
+
+	v := "€49.450"
+
+	var v_r []rune = []rune(v)
+
+	var v_b []byte = []byte(v)
+	char_byte := string(v_b[0])
+
+	fmt.Println("char dollar: ", char_byte)
+
+	char := v_r[0]
+
+	fmt.Println("char: ", string(char))
+	a, parseErr := strconv.ParseFloat(string(v_r[1:]), 64)
+	if parseErr == nil {
+		fmt.Println("amount: ", a)
+	} else {
+		fmt.Println("not parsable: ", parseErr)
+	}
 }
 
 // variadic function
