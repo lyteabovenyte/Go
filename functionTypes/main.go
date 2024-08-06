@@ -20,8 +20,8 @@ func printPrice(product string, price float64, calculator calFunc) {
 
 func selectCal(price float64) calFunc {
 	if price > 100 {
-		var WithTax calFunc = func (price float64) float64 {
-			return price + ( price * 0.2)
+		var WithTax calFunc = func(price float64) float64 {
+			return price + (price * 0.2)
 		}
 		return WithTax
 	} else {
@@ -29,6 +29,16 @@ func selectCal(price float64) calFunc {
 			return price
 		}
 		return WithoutTax
+	}
+}
+
+// function closure
+func priceCalFactory(threshold, rate float64) calFunc {
+	return func(price float64) float64 {
+		if price > threshold {
+			return price + (price * rate)
+		}
+		return price
 	}
 }
 
@@ -42,6 +52,28 @@ func main() {
 	for key, value := range product {
 		printPrice(key, value, selectCal(value))
 	}
-	
+
+	fmt.Println("------------------")
+
+	watersportsProducts := map[string]float64{
+		"Kayak":      275,
+		"Lifejacket": 48.95,
+	}
+
+	soccerProducts := map[string]float64{
+		"Soccer Ball": 19.50,
+		"Stadium":     79500,
+	}
+
+	waterCalc := priceCalFactory(100, 0.2) // returns the function to calculate for waterSports
+	soccerCals := priceCalFactory(50, 0.1) // returns the function to calculate for soccerSports
+
+	for key, value := range watersportsProducts {
+		printPrice(key, value, waterCalc)
+	}
+
+	for key, value := range soccerProducts {
+		printPrice(key, value, soccerCals)
+	}
 
 }
