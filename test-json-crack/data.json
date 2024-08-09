@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "another_field": "name",
+        "else-where": "some_where",
+        "user": {
+            "name": "amir",
+            "family": "alaeifar"
+        }
+    },
+    {
+        "id": 2,
+        "another_field": "oups",
+        "else-where": "koja",
+        "user": {
+            "name": "mo",
+            "family": "seyf"
+        }
+    }
+]
