@@ -1,4 +1,4 @@
-package main
+package benchmarking
 
 import (
 	"fmt"
@@ -6,10 +6,10 @@ import (
 )
 
 func main() {
-	printAlloc()
+	PrintAlloc()
 }
 
-func printAlloc() {
+func PrintAlloc() {
 	var m runtime.MemStats
 	runtime.ReadMemStats(&m)
 	fmt.Println(m.Alloc/1024, "KB")
