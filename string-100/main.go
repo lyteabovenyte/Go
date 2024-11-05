@@ -5,15 +5,19 @@
 // a string being a sequence of byte
 // a rune being a unicode code point determining a single value
 // (character) --> unicode code point
-package string100
+package main
 
 import (
 	"fmt"
 	"runtime"
 	"strings"
-
-	benchmarking "github.com/lyteabovenyte/benchmarking"
 )
+
+func benchmark() {
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
+	fmt.Printf("%dKB\n", m.Alloc/1024)
+}
 
 func stringfrombyte() {
 	s := string([]byte{0xE6, 0xB1, 0x89})
@@ -69,9 +73,23 @@ func main() {
 	runtime.GC()
 	s := []string{"amir", "alaeifar"}
 	fmt.Println(concatWithoutGrow(s))
-	benchmarking.PrintAlloc()
+	benchmark()
 	runtime.GC()
-	fmt.Println(concatWithGrow(s))
-	benchmarking.PrintAlloc()
+	d := []string{"amir", "alaeifar"}
+	fmt.Println(concatWithGrow(d))
+	benchmark()
 
+	var builder strings.Builder
+	for i := 3; i >= 1; i-- {
+		fmt.Fprintf(&builder, "%d,", i)
+	}
+	builder.WriteString("finish")
+	fmt.Println(builder.String())
+
+	str := "amir"
+	func(s string) {
+		n := strings.TrimRight(s, "r")
+		fmt.Println(n)
+	}(str)
+	fmt.Println(str)
 }
