@@ -1,9 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"bytes"
+	"fmt"
+	"log"
+)
 
 func main() {
 	fmt.Printf("%T type error", f("w"))
+
+	fmt.Println("\n---------Logging--------")
+	logger.Print("hello from logger")
+	fmt.Println(&buf) // logger will write the logs on io.Writer
 }
 
 func producer(s string) error {
@@ -36,3 +44,8 @@ type BarError struct {
 func (b *BarError) Error() string {
 	return "bar failed: " + b.Err.Error()
 }
+
+var (
+	buf    bytes.Buffer
+	logger = log.New(&buf, "logger: ", log.Lshortfile)
+)
