@@ -57,7 +57,10 @@ func unBufferedChannel() {
 	}()
 
 	for i := 0; i < 10; i++ {
-		uMessageCh <- i // will block until receiver is ready
+		// will block until receiver is ready
+		// so we'll get all the uMessageCh messages
+		// to run this loop
+		uMessageCh <- i
 	}
 	disconnetCh <- struct{}{}
 }
