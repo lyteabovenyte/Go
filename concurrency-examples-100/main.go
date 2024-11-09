@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 	"unsafe"
 )
 
@@ -46,6 +47,21 @@ func main() {
 		}
 		fmt.Println(value)
 	}
+
+	fmt.Println("------data race with slices-------")
+	s := make([]int, 0, 1)
+	fmt.Println("s", s)
+	go func() {
+		s1 := append(s, 5)
+		fmt.Println("s1", s1)
+	}()
+	time.Sleep(time.Second * 1)
+	go func() {
+		s2 := append(s, 6)
+		fmt.Println("s2", s2)
+	}()
+	fmt.Println("s again: ", s)
+	time.Sleep(time.Second * 1)
 }
 
 func bufferedChannel() {
