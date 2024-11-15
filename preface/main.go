@@ -23,14 +23,31 @@ func main() {
 	m, n := complex{1, 2}, complex{1, 1}
 	m.Add(n)
 	fmt.Println(m.value1, m.value2)
+
+	// example on cunstructor in golang.
+	withDefault := NewComplex(15)
+	fmt.Println(withDefault.value1, withDefault.value2)
+	withoutCons := &complex{15, 20}
+	fmt.Println(*withDefault == *withoutCons) // returns true!
+	withDefault.value1 = 16
+	fmt.Println(*withDefault == *withoutCons)
 }
 
 type complex struct {
 	value1 int
-	value2 int
+	value2 int // default to 20.
 }
 
 func (c *complex) Add(c2 complex) {
 	c.value1 += c2.value1
 	c.value2 += c2.value2
+}
+
+// NewComplex constructs a new complex with default values
+// for value2, but value1 is neccessary.
+func NewComplex(n1 int) *complex {
+	c := new(complex)
+	c.value1 = n1
+	c.value2 = 20
+	return c
 }
