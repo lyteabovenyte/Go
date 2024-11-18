@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"sync"
 )
 
@@ -14,7 +15,18 @@ func main() {
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/count", counter)
 	http.HandleFunc("/gif", func(w http.ResponseWriter, r *http.Request) {
-		lissajous(w)
+		cycleStr := r.FormValue("cycle")
+		var cycles float64
+		var cycleInt int
+		if cycleStr != "" {
+			var err error
+			cycleInt, err = strconv.Atoi(cycleStr)
+			if err != nil {
+				log.Print("cycle param not accepted")
+			}
+		}
+		cycles = float64(cycleInt)
+		lissajous(w, cycles)
 	})
 	log.Fatal(http.ListenAndServe("localhost:8080", nil))
 }
