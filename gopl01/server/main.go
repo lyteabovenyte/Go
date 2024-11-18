@@ -10,23 +10,22 @@ import (
 
 var mu sync.Mutex // concurrency with shared-variable.
 var count int
+var cycle int
 
 func main() {
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/count", counter)
 	http.HandleFunc("/gif", func(w http.ResponseWriter, r *http.Request) {
 		cycleStr := r.FormValue("cycle")
-		var cycles float64
-		var cycleInt int
+
 		if cycleStr != "" {
 			var err error
-			cycleInt, err = strconv.Atoi(cycleStr)
+			cycle, err = strconv.Atoi(cycleStr)
 			if err != nil {
 				log.Print("cycle param not accepted")
 			}
 		}
-		cycles = float64(cycleInt)
-		lissajous(w, cycles)
+		lissajous(w, cycle)
 	})
 	log.Fatal(http.ListenAndServe("localhost:8080", nil))
 }
