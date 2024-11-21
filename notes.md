@@ -8,4 +8,8 @@
 - golang lacks on constructor and destructor, (oop definition lacks some how)
 - the `for` loop is the only loop statement in golang.
 - `strings.Join` uses builder pattern under the hood for performance-wise issues for concatenation.
+- the zero value of interface and reference types (slices, map, function, pointers and channels) is `nil`.
+- Each component of a variable of aggregate type—a field of a struct or an element of an array—
+is also a variable and thus has an address too.
+- the `String()` method controls how values are printed when it is printed with fmt package. (satisfying *stringer* interface)
 - 
