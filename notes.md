@@ -12,4 +12,8 @@
 - Each component of a variable of aggregate type—a field of a struct or an element of an array—
 is also a variable and thus has an address too.
 - the `String()` method controls how values are printed when it is printed with fmt package. (satisfying *stringer* interface)
-- 
+- The scope of a control-flow label, as used by _break_, _continue_, and _goto_ statements, is the
+  entire enclosing function.
+- The function log.Fatalf prints a message and calls os.Exit(1).
+- os.Getwd --> get current directory --> which the error is fatal error, which prints a message and calls os.Exit(1)
+- Go's types comes into 4 categories: 1. basic types 2. aggregate types 3. reference types 4. interface
